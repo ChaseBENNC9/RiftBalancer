@@ -8,12 +8,12 @@ public class PlayerController : MonoBehaviour
 {
     public const float MOVE_SPEED = 5f;
     public const float JUMP_HEIGHT = 3;
-    public Transform groundCheck ;
+    public Transform groundCheck;
+    public LayerMask groundLayer; 
     public float groundCheckRadius = 0.2f;
     private bool isGrounded;
     private Vector2 moveDir;
     private Rigidbody2D rb;
-    public LayerMask groundLayer; 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Camera.main.gameObject.transform.position = new Vector3(gameObject.transform.position.x,Camera.main.gameObject.transform.position.y,-10);
         rb.linearVelocityX = moveDir.x*MOVE_SPEED;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
