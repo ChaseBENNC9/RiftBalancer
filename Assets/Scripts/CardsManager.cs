@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class CardsManager : MonoBehaviour
 {
@@ -16,6 +17,14 @@ public class CardsManager : MonoBehaviour
     }
 
 
+    public void SelectCard(Image btn)
+    {
+        foreach (TextMeshProUGUI e in handGui)
+        {
+            e.gameObject.transform.parent.GetComponent<Image>().color = Color.white;
+        }
+        btn.color = Color.green;
+    }
     private void DealHand()
     {
         int deckSize = deck.Count;
