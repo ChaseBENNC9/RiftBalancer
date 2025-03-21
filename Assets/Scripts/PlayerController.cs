@@ -14,10 +14,12 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private Vector2 moveDir;
     private Rigidbody2D rb;
+    [HideInInspector] public  bool enableMovement;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        enableMovement = true;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -25,8 +27,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Camera.main.gameObject.transform.position = new Vector3(gameObject.transform.position.x,Camera.main.gameObject.transform.position.y,-10);
+        if (enableMovement)
+        {
+
         rb.linearVelocityX = moveDir.x*MOVE_SPEED;
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        }
 
 
     }

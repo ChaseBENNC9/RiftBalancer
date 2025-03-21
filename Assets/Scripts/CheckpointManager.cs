@@ -17,8 +17,16 @@ public class CheckpointManager : MonoBehaviour
 
     public void SetActiveCheckpoint(Checkpoint c)
     {
+
         if (activeCheckpoint != null)
+        {
             activeCheckpoint.Deactivate();
+            CardsManager.i.ReplaceCard();
+        }
+        else
+        {
+            CardsManager.i.DealHand();
+        }
         activeCheckpoint = c;
     }
 }
