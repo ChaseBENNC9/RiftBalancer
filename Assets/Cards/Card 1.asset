@@ -15,4 +15,4 @@ MonoBehaviour:
   cardName: Card 1
   cardBuff: 0
   cardDebuff: 4
-  cardSprite: {fileID: 7482667652216324306, guid: 71611e8db23cc27479137b87a068216e, type: 3}
+  cardSprite: {fileID: 0}

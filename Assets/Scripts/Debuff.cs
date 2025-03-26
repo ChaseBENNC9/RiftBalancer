@@ -9,6 +9,7 @@ public abstract class Debuff : CardEffect
         this.effectMultiplier = effectMultiplier;
         this.duration = duration;
         this.debuff = debuff;
+        this.applied = false;
     }
 }
 

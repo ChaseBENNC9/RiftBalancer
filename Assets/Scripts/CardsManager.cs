@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.AI;
 using NUnit.Framework.Internal;
+using Unity.VisualScripting;
 
 public class CardsManager : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class CardsManager : MonoBehaviour
 
         }
         GameObject.FindWithTag("Player").GetComponent<PlayerController>().enableMovement = !enable;
+
     }
 
 
@@ -82,6 +84,7 @@ public class CardsManager : MonoBehaviour
 
     private void ActivateCard()
     {
+
         switch (activeCard.cardName)
         {
     case "Card 1":
@@ -90,6 +93,8 @@ public class CardsManager : MonoBehaviour
 
     case "Card 2":
         playerSpr.color = Color.yellow;
+        activeCard.GetBuff().ApplyEffect();
+        activeCard.GetDebuff().ApplyEffect(); // Fast black square
         break;
 
     case "Card 3":
@@ -114,6 +119,8 @@ public class CardsManager : MonoBehaviour
             
         }
     }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -154,7 +161,12 @@ public class CardsManager : MonoBehaviour
                 break;
             }
         }
-        
+        if(activeCard.GetBuff() != null && activeCard.GetDebuff() != null)
+        {
+
+        activeCard.GetBuff().RemoveEffect();
+        activeCard.GetDebuff().RemoveEffect();
+        }
         activeCard = null;
    
 

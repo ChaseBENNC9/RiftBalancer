@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public const float MOVE_SPEED = 5f;
+    public const float BASE_SPEED = 5f;
+    public float currentSpeed; 
     public float JUMP_HEIGHT = 3;
     public Transform groundCheck;
     public LayerMask groundLayer; 
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         enableMovement = true;
         rb = GetComponent<Rigidbody2D>();
+        currentSpeed = 1;
     }
 
     // Update is called once per frame
@@ -30,15 +32,12 @@ public class PlayerController : MonoBehaviour
         {
 
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-            rb.linearVelocityX = moveDir.x*MOVE_SPEED;
+            rb.linearVelocityX = moveDir.x*currentSpeed*BASE_SPEED;
         }
         else
         {
             rb.linearVelocityX = 0;
         }
-
-
-
     }
     public void OnMove(InputAction.CallbackContext c)
     {

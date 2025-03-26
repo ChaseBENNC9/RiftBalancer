@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine.VFX;
+
 public abstract class Buff : CardEffect
 {
     protected BuffTypes buff;
@@ -11,5 +12,6 @@ public abstract class Buff : CardEffect
         this.effectMultiplier = effectMultiplier;
         this.duration = duration;
         this.buff = buff;
+        this.applied = false;
     }
 }
