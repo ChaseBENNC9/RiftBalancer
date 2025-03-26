@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.AI;
+using NUnit.Framework.Internal;
 
 public class CardsManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class CardsManager : MonoBehaviour
     public List<CardData> deck;
     public CardData[] hand;
     [SerializeField] private TextMeshProUGUI[] handGui;
+    public TextMeshProUGUI pickText;
     public static CardsManager i;
     [SerializeField] private CardData activeCard;
     public SpriteRenderer playerSpr;
@@ -28,6 +30,8 @@ public class CardsManager : MonoBehaviour
 
     public void AllowSelection(bool enable = true)
     {
+
+        pickText.gameObject.SetActive(enable);
         foreach (TextMeshProUGUI e in handGui)
         {
             e.gameObject.transform.parent.GetComponent<Button>().enabled = enable;

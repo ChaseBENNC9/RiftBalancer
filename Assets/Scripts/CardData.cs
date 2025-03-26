@@ -7,8 +7,8 @@ using System.Collections;
 public class CardData : ScriptableObject
 {
     public string cardName;
-    public Buffs cardBuff;
-    public Debuffs cardDebuff;
+    public BuffTypes cardBuff;
+    public DebuffTypes cardDebuff;
     public Sprite cardSprite;
 }
 

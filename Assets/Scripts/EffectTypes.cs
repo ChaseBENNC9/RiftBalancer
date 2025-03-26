@@ -1,4 +1,4 @@
-public enum Buffs
+public enum BuffTypes
 {
     ReShuffle,
     FastWalk,
@@ -8,7 +8,7 @@ public enum Buffs
     LowGravity
 
 }
-public enum Debuffs
+public enum DebuffTypes
 {
     InvertedControls,
     Slowness,
