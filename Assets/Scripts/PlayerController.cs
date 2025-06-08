@@ -3,16 +3,20 @@ using System;
 using System.Collections;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
+using Unity.Jobs.LowLevel.Unsafe;
 
 public class PlayerController : MonoBehaviour
 {
-    public const float BASE_SPEED = 3f;
+    public const float BASE_SPEED = 2f;
+    public const float SPRINT_SPEED = 4.5f;
+    public bool isSprinting;
     public float currentSpeed;
     public float JUMP_HEIGHT = 3;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public float groundCheckRadius = 0.2f;
     [SerializeField] private bool isGrounded;
+    public bool isCasting;
     private Vector2 moveDir;
     private Rigidbody2D rb;
     private Animator animator;
@@ -22,6 +26,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        isSprinting = false;
         enableMovement = true;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -35,7 +40,8 @@ public class PlayerController : MonoBehaviour
         {
 
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
-            rb.linearVelocityX = moveDir.x * currentSpeed * BASE_SPEED;
+            float speedMultiplier = isSprinting ? SPRINT_SPEED : BASE_SPEED;
+            rb.linearVelocityX = moveDir.x * currentSpeed * speedMultiplier;
         }
         else
         {
@@ -43,6 +49,7 @@ public class PlayerController : MonoBehaviour
         }
         if (rb.linearVelocityX != 0)
             playerSprite.flipX = moveDir.x == -1;
+
         animator.SetFloat("playerSpeed", MathF.Abs(rb.linearVelocityX));
         animator.SetBool("isGrounded", isGrounded);
 
@@ -63,10 +70,37 @@ public class PlayerController : MonoBehaviour
         if (c.performed && isGrounded)
             rb.AddForce(Vector2.up * JUMP_HEIGHT, ForceMode2D.Impulse);
     }
-    
-        public void OnCast(InputAction.CallbackContext c)
+
+    public void OnCast(InputAction.CallbackContext c)
+    {
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+        if (state.IsName("Player_CastSpell") || !isGrounded)
+            return;
+       else if (c.performed)
+        {
+            animator.SetTrigger("CastSpell");
+
+        }
+    }
+
+        public void OnSlash(InputAction.CallbackContext c)
+    {
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+        if (state.IsName("Player_Slash") || !isGrounded)
+            return;
+       else if (c.performed)
+        {
+            animator.SetTrigger("Slash");
+
+        }
+    }
+
+    public void OnSprint(InputAction.CallbackContext c)
     {
         if (c.performed)
-            animator.SetTrigger("CastSpell");
+            isSprinting = true;
+        if (c.canceled)
+            isSprinting = false;
+
     }
 }
