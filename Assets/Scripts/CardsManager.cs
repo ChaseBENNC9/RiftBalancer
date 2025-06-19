@@ -89,6 +89,8 @@ public class CardsManager : MonoBehaviour
         {
     case "Card 1":
         playerSpr.color = Color.red;
+        activeCard.GetBuff().ApplyEffect();
+
         break;
 
     case "Card 2":

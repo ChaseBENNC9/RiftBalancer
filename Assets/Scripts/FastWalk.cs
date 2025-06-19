@@ -15,11 +15,12 @@ public class FastWalk : Buff
     }
     public override void RemoveEffect()
     {
-        if ( !applied ) return;
-        if(GameObject.FindGameObjectWithTag("Player").TryGetComponent(out PlayerController pc))
+        if (!applied) return;
+        if (GameObject.FindGameObjectWithTag("Player").TryGetComponent(out PlayerController pc))
         {
             pc.currentSpeed /= effectMultiplier;
             applied = false;
-        }    }
+        }
+    }
 
 }

@@ -14,6 +14,7 @@ public class CardData : ScriptableObject
     private static Dictionary<BuffTypes, CardEffect> buffMapping = new Dictionary<BuffTypes, CardEffect>
     {
         { BuffTypes.FastWalk, new FastWalk() },
+        {BuffTypes.LowGravity, new LowGravity()}
         // { BuffTypes.AutoJump, new A() }
     };
 
